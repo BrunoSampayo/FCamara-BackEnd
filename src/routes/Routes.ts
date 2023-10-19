@@ -19,6 +19,6 @@ router.get('/ping', (req, res) => { res.json({ pong: true }) });
 
 router.post('/user', AuthHandler, EnsureAsAdmin, createUserControler.handle);
 router.delete('/user', AuthHandler, EnsureAsAdmin, deleteUserController.handle);
-router.get('/user', getUserController.handle);
+router.get('/user',AuthHandler, EnsureAsAdmin, getUserController.handle);
 router.post('/login', authenticateUserController.handle);
 
