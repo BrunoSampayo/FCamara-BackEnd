@@ -8,7 +8,7 @@ export const AuthHandler = (req: Request, res: Response, next: NextFunction)=>{
           }
       
           if (!user) {
-            return res.status(401).json({ message: 'Não autorizado' });
+            return res.status(401).json({ Error: 'Invalid Token' });
           }
       
           req.user = user;
