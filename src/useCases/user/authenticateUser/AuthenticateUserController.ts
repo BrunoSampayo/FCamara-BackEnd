@@ -12,7 +12,6 @@ class AuthenticateUserController {
             return res.json(Auth)
 
         }catch(error){
-            console.log((error as Error).message);
             return res.json({Error:(error as Error).message})
         }
         

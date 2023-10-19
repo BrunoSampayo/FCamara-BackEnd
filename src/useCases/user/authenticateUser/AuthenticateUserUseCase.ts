@@ -1,6 +1,7 @@
 
 import { prismaClient } from "../../../prisma/Prismaclient";
 import { compare } from "bcryptjs";
+import { GenerateTokenProvider } from "../../../providers/GenerateTokenProvider";
 type AutheticateData ={
     cpf:string,
     password:string,
@@ -18,14 +19,16 @@ class AuthenticateUserUseCase {
             }
         })
         if(!haveUser){
-            throw new Error("Not user found our invalid password, check your credentials with administration")
+            throw new Error("Not user found or invalid password, check your credentials with administration")
         }
         const validPassowd  = await compare(Data.password,haveUser.password_hash)
         if(!validPassowd){
-            throw new Error("Not user found our invalid password, check your credentials with administration") 
+            throw new Error("Not user found or invalid password, check your credentials with administration") 
         }
         if(validPassowd){
-            return {haveUser}
+            const generateTokenProvider = new GenerateTokenProvider();
+            const token = await generateTokenProvider.execute(haveUser.id);
+            return {token}
         }
     }
 }
