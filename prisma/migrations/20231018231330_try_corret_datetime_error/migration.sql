@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "users" ALTER COLUMN "birthday" DROP DEFAULT,
+ALTER COLUMN "birthday" SET DATA TYPE TIMESTAMP(3);
