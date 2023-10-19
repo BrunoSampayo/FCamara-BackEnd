@@ -12,7 +12,6 @@ const deleteUserController = new DeleteUserController;
 
 
 router.get('/ping', (req, res) => { res.json({ pong: true }) });
-router.post('/user', createUserControler.handle);
+router.post('/user',AuthHandler,EnsureAsAdmin, createUserControler.handle);
 router.post('/login', authenticateUserController.handle);
 router.delete('/user', AuthHandler,EnsureAsAdmin,deleteUserController.handle);
-router.get("/teste", (req, res) => { throw new Error("Teste") });
