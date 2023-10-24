@@ -6,7 +6,6 @@ class UploadOneFile {
         if (file) {
             const files = file as Express.Multer.File
             await sharp(files.path).resize(500).toFormat('jpeg').toFile(`${path}${files.filename}.jpg`);
-            console.log(path)
             await unlink(files.path)
             return files.filename + ".jpg";
 
