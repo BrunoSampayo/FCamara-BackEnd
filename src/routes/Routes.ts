@@ -11,6 +11,7 @@ import { EnsureAsAdmin } from "../middlewares/EnsureAsAdminstrator";
 import { AddBookController } from "../useCases/book/addBook/AddBookController";
 import uploadconfig from "../config/multerConfig";
 import { RemoveBookController } from "../useCases/book/removeBook/RemoveBookController";
+import { GetBookController } from "../useCases/book/getBook/GetBookController";
 
 export const router = Router();
 
@@ -22,7 +23,7 @@ const editUserController = new EditUserController;
 
 const addBookController = new AddBookController;
 const removeBookController = new RemoveBookController;
-
+const getBookController = new GetBookController;
 
 router.get('/ping', (req, res) => { res.json({ pong: true }) });
 
@@ -33,5 +34,6 @@ router.put('/user/edit/:id', AuthHandler, EnsureAsAdmin, editUserController.hand
 router.post('/login', authenticateUserController.handle);
 
 
-router.post('/book',uploadconfig.single('image') ,addBookController.handle);
-router.delete('/book',removeBookController.handle);
+router.post('/book',  AuthHandler, EnsureAsAdmin,uploadconfig.single('image'), addBookController.handle);
+router.delete('/book', AuthHandler, EnsureAsAdmin, removeBookController.handle);
+router.get('/book', AuthHandler, EnsureAsAdmin, getBookController.handle);
