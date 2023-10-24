@@ -30,6 +30,7 @@ model Book {
   title     String
   author    String
   ISBN      String     @unique
+  image_url String
   book_Copy BookCopy[]
 
   @@map("books")
